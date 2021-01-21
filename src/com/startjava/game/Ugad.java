@@ -1,3 +1,5 @@
+package com.startjava.game;
+
 public class Ugad{
 	public static void main(String[] args){
 		int zagad = 14;
