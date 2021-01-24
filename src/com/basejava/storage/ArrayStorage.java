@@ -22,12 +22,15 @@ public class ArrayStorage {
         }
     }
 
-    public void save(Resume uuid){
-        if(getIndex(uuid.toString())!= -1)
+    public void save(Resume r){
+        if(getIndex(r.toString())!= -1)
         {
-            System.out.println("Resume" + uuid.toString() + "already exist!");
-        }else{
-            storage[size] = uuid;
+            System.out.println("Resume" + r.toString() + "already exist!");
+        } else if(size == storage.length){
+            System.out.println("Storage overflow!!!");
+        }
+        else{
+            storage[size] = r;
             size++;
         }
 
@@ -35,19 +38,19 @@ public class ArrayStorage {
 
     public Resume get(String uuid){
         if(getIndex(uuid.toString()) == -1) {
-            System.out.println("Resume" + uuid + "not found!");
+            System.out.println("Resume " + uuid + " not found!");
             return null;
         }
         return storage[getIndex(uuid)];
     }
 
     public void delete(String uuid){
-        for(int i = 0; i < 1000; i++) {
-            if (uuid == storage[i].toString()) {
-                storage[i] = storage[size - 1];
-                storage[size - 1] = null;
-                size--;
-            }
+        if(getIndex(uuid) == -1) {
+            System.out.println("Resume " + uuid + " not exist");
+        }else{
+            storage[getIndex(uuid)] = storage[size - 1];
+            storage[size - 1] = null;
+            size--;
         }
     }
 
@@ -56,7 +59,7 @@ public class ArrayStorage {
     }
 
 
-    public void getAll(){
+    /*public void printAll(){
         for (int i = 0; i < 1000; i++) {
             if(storage[i] != null) {
                 System.out.println(storage[i].toString());
@@ -66,6 +69,15 @@ public class ArrayStorage {
             }
         }
 
+    }*/
+
+    public Resume[] getAll(){
+        Resume[] result = new Resume[size];
+        for(int i = 0; i < size; i++)
+        {
+            result[i] = storage[i];
+        }
+        return result;
     }
 
     public int getIndex(String uuid){

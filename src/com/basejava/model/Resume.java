@@ -1,7 +1,15 @@
 package com.basejava.model;
 
 public class Resume {
-    String uuid;
+    private String uuid;
+
+    public void setUuid(String uuid){
+        this.uuid = uuid;
+    }
+
+    public String getUuid (){
+        return this.uuid;
+    }
 
     @Override
     public String toString(){
