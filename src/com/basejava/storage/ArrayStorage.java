@@ -4,7 +4,7 @@ import com.basejava.model.Resume;
 
 import java.util.Arrays;
 
-public class ArrayStorage {
+public class ArrayStorage implements Storage {
 
     private static final int STORAGE_LIMIT = 1000;
     private Resume[] storage = new Resume[STORAGE_LIMIT];
@@ -77,7 +77,7 @@ public class ArrayStorage {
         return Arrays.copyOfRange(storage,0, size);
     }
 
-    public int getIndex(String uuid){
+    private int getIndex(String uuid){
         for (int i = 0; i < size; i++) {
             if(uuid == (storage[i].toString())) {
                 return i;

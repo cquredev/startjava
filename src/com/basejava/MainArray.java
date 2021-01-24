@@ -2,10 +2,11 @@ package com.basejava;
 
 import com.basejava.model.Resume;
 import com.basejava.storage.ArrayStorage;
+import com.basejava.storage.Storage;
 
 
 public class MainArray {
-    private final static ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+    private final static Storage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
         final Resume r1 = new Resume();
