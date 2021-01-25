@@ -1,5 +1,8 @@
 package com.basejava.storage;
 
+import com.basejava.exception.ExistStorageException;
+import com.basejava.exception.NotExistStorageException;
+import com.basejava.exception.StorageException;
 import com.basejava.model.Resume;
 
 import java.util.Arrays;
@@ -18,7 +21,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public void update(Resume r){
         int index = getIndex(r.toString());
         if(index < 0){
-            System.out.println("Resume" + r.toString() + "not found!");
+            throw new NotExistStorageException(r.getUuid());//System.out.println("Resume" + r.toString() + "not found!");
         }else{
             storage[index] = r;
         }
@@ -32,9 +35,9 @@ public abstract class AbstractArrayStorage implements Storage {
         int index = getIndex(r.toString());
         if(index > 0)
         {
-            System.out.println("Resume" + r.toString() + "already exist!");
+            throw new ExistStorageException(r.getUuid());
         } else if(size == STORAGE_LIMIT){
-            System.out.println("Storage overflow!!!");
+            throw new StorageException("Storage overflow!!!", r.getUuid());
         }
         else{
             insertElement(r, index);
@@ -52,7 +55,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public void delete(String uuid){
         int index = getIndex(uuid);
         if(index < 0) {
-            System.out.println("Resume " + uuid + " not exist");
+            throw new NotExistStorageException(uuid);
         }else{
             fillDeletedElement(index);
             storage[size - 1] = null;
@@ -65,8 +68,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public Resume get(String uuid){
         int index = getIndex(uuid);
         if(index < 0) {
-            System.out.println("Resume " + uuid + " not found!");
-            return null;
+            throw new NotExistStorageException(uuid);
         }
         return storage[getIndex(uuid)];
     }
